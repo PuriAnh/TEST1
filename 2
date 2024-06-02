@@ -1,0 +1,40 @@
+import math
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+    
+def sigmoid(x):
+    return 1/(1+math.exp(-x))
+
+
+def relu(x):
+    return max(0, x)
+
+def elu(x):
+    a = 0.01
+    return x if x >= 0 else a*(math.exp(x)-1)
+
+def activation_function(x, a_name):
+    if not is_number(x):
+        print('x must be a number')
+        return
+    x = float(x)
+    
+    if a_name.lower() == 'sigmoid':
+        result = sigmoid(x)
+    elif a_name.lower() == 'relu':
+        result = relu(x)
+    elif a_name.lower() == 'elu':
+        result = elu(x)
+    else:
+        print(f'{a_name} is not supported')
+        return
+    print(f'{a_name}: f({x}) = {result}')
+    
+x = input('Nhập giá trị x: ')
+a_name = input('Nhập tên activation function (sigmoid|relu|elu): ')
+activation_function(x, a_name)
