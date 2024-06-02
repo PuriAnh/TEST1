@@ -1,0 +1,54 @@
+import math
+
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+
+def sin_approximation(x, n):
+    result = 0
+    for i in range(n):
+        coefficient = (-1) ** i
+        exponent = 2 * i + 1
+        term = coefficient * (x ** exponent) / factorial(exponent)
+        result += term
+    return result
+
+def cos_approximation(x, n):
+    result = 0
+    for i in range(n):
+        coefficient = (-1) ** i
+        exponent = 2 * i
+        term = coefficient * (x ** exponent) / factorial(exponent)
+        result += term
+    return result
+
+def sinh_approximation(x, n):
+    result = 0
+    for i in range(n):
+        exponent = 2 * i + 1
+        term = (x ** exponent) / factorial(exponent)
+        result += term
+    return result
+
+def cosh_approximation(x, n):
+    result = 0
+    for i in range(n):
+        exponent = 2 * i
+        term = (x ** exponent) / factorial(exponent)
+        result += term
+    return result
+
+x = float(input('Nhập giá trị x (radian): '))
+n = int(input('Nhập số lần lặp (n > 0): '))
+
+sin_approx = sin_approximation(x, n)
+cos_approx = cos_approximation(x, n)
+sinh_approx = sinh_approximation(x, n)
+cosh_approx = cosh_approximation(x, n)
+
+print(f'sin({x}) ≈ {sin_approx}')
+print(f'cos({x}) ≈ {cos_approx}')
+print(f'sinh({x}) ≈ {sinh_approx}')
+print(f'cosh({x}) ≈ {cosh_approx}')
