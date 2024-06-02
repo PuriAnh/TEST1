@@ -1,0 +1,30 @@
+import random
+import math
+
+def regression_loss(num_samples, loss_name):
+    if not num_samples.isnumeric():
+        print('number of samples must be an integer number')
+        return
+    
+    num_samples = int(num_samples)
+    
+    for i in range(num_samples):
+        predict = random.uniform(0, 10)
+        target = random.uniform(0, 10)
+        
+        if loss_name.lower() == 'mae':
+            loss = abs(target - predict)
+        elif loss_name.lower() == 'mse':
+            loss = (target - predict) ** 2
+        elif loss_name.lower() == 'rmse':
+            loss = math.sqrt((target - predict) ** 2)
+        else:
+            print('Invalid loss name')
+            return
+        
+        print(f'loss name: {loss_name.upper()}, sample: sample-{i}, predict: {predict}, target: {target}, loss: {loss}')
+
+
+num_samples = input('Nhập số lượng samples: ')
+loss_name = input('Nhập tên loss function (MAE | MSE | RMSE): ')
+regression_loss(num_samples, loss_name)
