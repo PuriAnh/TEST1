@@ -1,0 +1,34 @@
+def MD_nRE_single(y, y_hat, n, p):
+    
+    root_y = y ** (1 / n)
+    root_y_hat = y_hat ** (1 / n)
+    
+    diff = root_y - root_y_hat
+    
+    diff_p = abs(diff) ** p
+    
+    return diff_p
+
+def MD_nRE(y_values, y_hat_values, n, p):
+    if len(y_values) != len(y_hat_values):
+        raise ValueError("Danh sách y_values và y_hat_values phải có cùng độ dài.")
+    
+    total_loss = sum(MD_nRE_single(y, y_hat, n, p) for y, y_hat in zip(y_values, y_hat_values))
+    
+    mean_loss = total_loss / len(y_values)
+    
+    return mean_loss
+
+y_values = [100, 50, 20, 5.5, 1.0, 0.6]
+y_hat_values = [99.5, 49.5, 19.5, 5.0, 0.5, 0.1]
+n = 2
+p = 1
+
+print("y\ty_hat\tMAE\tMD_nRE (n=2, p=1)")
+for y, y_hat in zip(y_values, y_hat_values):
+    mae = abs(y - y_hat)
+    md_nre = MD_nRE_single(y, y_hat, n, p)
+    print(f"{y}\t{y_hat}\t{mae}\t{md_nre:.3f}")
+
+mean_md_nre = MD_nRE(y_values, y_hat_values, n, p)
+print(f"Mean Difference of nth Root Error (n=2, p=1) cho toàn bộ tập dữ liệu: {mean_md_nre:.3f}")
